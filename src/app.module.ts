@@ -5,6 +5,7 @@ import {GraphQLModule} from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { RestaurantsModule } from './restaurants/restaurants.module';
+import { Restaurant } from './restaurants/entities/restaurant.entitiy';
 
 @Module({
   imports: [GraphQLModule.forRoot(
@@ -31,8 +32,9 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
     username:process.env.DB_USERNAME,
     password:process.env.DB_PASSWORD,
     database:process.env.DB_NAME,
-    synchronize:true,
-    logging:true
+    synchronize:process.env.NODE_ENV !=="prod", //typeorm이 entitiy를 찾아서 알아서 migration해주는옵션
+    logging:true,
+    entities:[Restaurant]
 
   }),
   RestaurantsModule
