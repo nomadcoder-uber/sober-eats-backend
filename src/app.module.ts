@@ -33,7 +33,7 @@ import { Restaurant } from './restaurants/entities/restaurant.entitiy';
     password:process.env.DB_PASSWORD,
     database:process.env.DB_NAME,
     synchronize:process.env.NODE_ENV !=="prod", //typeorm이 entitiy를 찾아서 알아서 migration해주는옵션
-    logging:true,
+    logging:process.env.NODE_ENV !=='prod'&& process.env.NODE_ENV !== 'test', //DB에서 돌아가는 모든 로그들을 확인하는 옵션
     entities:[Restaurant]
 
   }),
