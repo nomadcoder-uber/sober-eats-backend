@@ -18,6 +18,7 @@ export class RestaurantResolver{
     async createRestaurant(
         @Args('input') CreateRestaurantDto: CreateRestaurantDto,
     ): Promise<boolean> {
+        console.log(CreateRestaurantDto)
         try{
             await this.restaurantService.createRestaurant(CreateRestaurantDto);
             return true;
