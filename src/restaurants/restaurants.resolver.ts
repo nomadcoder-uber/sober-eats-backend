@@ -1,6 +1,7 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { CreateRestaurantDto } from "./dtos/create-restaurant.dto";
 import { UpdateRestaurantDto } from "./dtos/update-restaurant.dto";
+// import { DeleteRestaurantDto } from "./dtos/delete-restaurant.dto";
 import { Restaurant } from "./entities/restaurant.entitiy";
 import { RestaurantService } from "./restaurants.service";
 
@@ -37,8 +38,19 @@ export class RestaurantResolver{
             console.log(e);
             return false;
         
+        }
     }
-   
+
+    // @Mutation(returns => Boolean)
+    // async deleteRestaurant(@Args('input') deleteRestaurantDto:DeleteRestaurantDto): Promise<Boolean>{
+    //     try{
+    //         await this.restaurantService.deleteRestaurant(deleteRestaurantDto)
+    //         return true;
+    //     }catch(e){
+    //         console.log(e);
+    //         return false;
+        
+    //     }
     }
-}
+
 

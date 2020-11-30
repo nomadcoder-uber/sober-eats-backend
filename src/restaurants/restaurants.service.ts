@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateRestaurantDto } from "./dtos/create-restaurant.dto";
 import { UpdateRestaurantDto } from "./dtos/update-restaurant.dto";
+// import { DeleteRestaurantDto } from "./dtos/delete-restaurant.dto";
 import { Restaurant } from "./entities/restaurant.entitiy";
 
 @Injectable()
@@ -21,7 +22,8 @@ export class RestaurantService{
     }
     updateRestaurant({id,data}: UpdateRestaurantDto){
        return this.restaurants.update(id,{...data});
-
-
     }
+    // deleteRestaurant({id}: DeleteRestaurantDto){
+    //     return this.restaurants.delete(id); 
+    // }
 }

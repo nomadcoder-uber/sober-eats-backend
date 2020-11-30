@@ -6,6 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { Restaurant } from './restaurants/entities/restaurant.entitiy';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entitiy';
+
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [GraphQLModule.forRoot(
@@ -34,10 +38,11 @@ import { Restaurant } from './restaurants/entities/restaurant.entitiy';
     database:process.env.DB_NAME,
     synchronize:process.env.NODE_ENV !=="prod", //typeorm이 entitiy를 찾아서 알아서 migration해주는옵션
     logging:process.env.NODE_ENV !=='prod'&& process.env.NODE_ENV !== 'test', //DB에서 돌아가는 모든 로그들을 확인하는 옵션
-    entities:[Restaurant]
+    entities:[User]
 
   }),
-  RestaurantsModule
+  CommonModule,
+  UsersModule
 ],
   controllers: [],
   providers: [],

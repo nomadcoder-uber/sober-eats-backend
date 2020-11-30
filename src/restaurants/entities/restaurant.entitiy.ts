@@ -4,8 +4,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 
-@ObjectType()
-@Entity()
+@ObjectType() //스키마 빌드를 위한 graphql decorator
+@Entity() //typeorm decorator
 export class Restaurant {
 
     @PrimaryGeneratedColumn()
