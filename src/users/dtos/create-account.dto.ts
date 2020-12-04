@@ -1,4 +1,4 @@
-import { Field, InputType, PickType } from "@nestjs/graphql";
+import { Field, InputType, ObjectType, PickType } from "@nestjs/graphql";
 import { User } from "../entities/user.entitiy";
 
 
@@ -8,7 +8,7 @@ export class CreateAccountInput extends PickType(User, ["email", "password", "ro
 {}
 
 
-
+@ObjectType()
 export class CreateAccountOutput {
     @Field(type => String, {nullable: true})
     error?: string;
