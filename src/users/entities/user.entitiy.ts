@@ -5,6 +5,7 @@ type UserRole = 'client' | 'owner' | 'delivery';
 
 @Entity()
 export class User extends CoreEntitiy{
+    
     @Column()
     email: string;
 
