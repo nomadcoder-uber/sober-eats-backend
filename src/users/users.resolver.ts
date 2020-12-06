@@ -18,11 +18,8 @@ export class UsesrResolver {
     @Mutation(returns => CreateAccountOutput)
     async createAccount(@Args("input") createAccountInput: CreateAccountInput): Promise<CreateAccountOutput>{ //createAccountoutput을 return
         try {
-            const {ok, error} = await this.userService.createAccount(createAccountInput);
-            return {
-                ok: false,
-                error,
-            }
+            return  this.userService.createAccount(createAccountInput);
+       
         
         }catch(error){
             return {
@@ -33,5 +30,15 @@ export class UsesrResolver {
 
     }
     @Mutation(returns => LoginOutput)
-    async login(@Args('input') loginInput: LoginInput){}
+    async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {
+        try{
+            return  this.userService.login(loginInput);
+
+        }catch(error){
+            return {
+                ok:false,
+                error,
+            }
+        }
+    }
 }
