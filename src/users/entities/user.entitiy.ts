@@ -1,8 +1,9 @@
 import { Field, InputType, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { type } from "os";
 import { CoreEntitiy } from "src/common/entities/core.entitiy";
-import { Column, Entity } from "typeorm";
-
+import { BeforeInsert, Column, Entity } from "typeorm";
+import * as bcrypt from 'bcrypt';
+import { InternalServerErrorException } from "@nestjs/common";
 
 
 enum UserRole { // userrole.dlivery로 사용가능
@@ -28,4 +29,15 @@ export class User extends CoreEntitiy{
     @Column({type:'enum', enum: UserRole})
     @Field(type => UserRole)
     role: UserRole;
+
+    @BeforeInsert() //DB에 password 넣기 전에 hash 하는 방법
+    async hashPassword(): Promise<void> {
+        try{
+            this.password = await bcrypt.hash(this.password, 10);
+        } catch(e){
+            console.log(e);
+            throw new InternalServerErrorException();
+        }
+
+    }
 }
