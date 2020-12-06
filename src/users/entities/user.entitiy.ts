@@ -4,6 +4,7 @@ import { CoreEntitiy } from "src/common/entities/core.entitiy";
 import { BeforeInsert, Column, Entity } from "typeorm";
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from "@nestjs/common";
+import { IsEmail, IsEnum } from "class-validator";
 
 
 enum UserRole { // userrole.dlivery로 사용가능
@@ -20,6 +21,7 @@ export class User extends CoreEntitiy{
     
     @Column()
     @Field(type => String)
+    @IsEmail()
     email: string;
 
     @Column()
@@ -28,6 +30,7 @@ export class User extends CoreEntitiy{
 
     @Column({type:'enum', enum: UserRole})
     @Field(type => UserRole)
+    @IsEnum(UserRole)
     role: UserRole;
 
     @BeforeInsert() //DB에 password 넣기 전에 hash 하는 방법
