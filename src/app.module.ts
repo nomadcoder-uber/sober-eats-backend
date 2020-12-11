@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entitiy';
 
 import { CommonModule } from './common/common.module';
+import { JwtModule } from './jwt/jwt.module';
 
 @Module({
   imports: [GraphQLModule.forRoot(
@@ -43,7 +44,8 @@ import { CommonModule } from './common/common.module';
 
   }),
   CommonModule,
-  UsersModule
+  UsersModule,
+  JwtModule
 ],
   controllers: [],
   providers: [],
