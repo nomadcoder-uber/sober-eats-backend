@@ -15,7 +15,6 @@ export class UsersService  {
         private readonly config:ConfigService,
         private readonly jwtService: JwtService
     ) {
-        this.jwtService.hello()
     }
 
     async createAccount({email, password, role}: CreateAccountInput): Promise<{ok: boolean; error?:string}>{ //object를 return

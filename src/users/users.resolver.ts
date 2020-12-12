@@ -33,7 +33,6 @@ export class UsesrResolver {
     async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {
         try{
             return  this.userService.login(loginInput);
-
         }catch(error){
             return {
                 ok:false,

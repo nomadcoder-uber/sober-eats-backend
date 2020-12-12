@@ -27,7 +27,7 @@ import { JwtModule } from './jwt/jwt.module';
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD:Joi.string().required(),
         DB_NAME:Joi.string().required(),
-        SECRET_KEY: Joi.string().required(),  //token을 지정하기 위해 사용하는 privateKey
+        PRIVATE_KEY: Joi.string().required(),  //token을 지정하기 위해 사용하는 privateKey
 
       })
     }),
@@ -43,7 +43,9 @@ import { JwtModule } from './jwt/jwt.module';
     entities:[User]
 
   }),
-  JwtModule.forRoot(),
+  JwtModule.forRoot({
+    privateKey: process.env.PRIVATE_KEY,
+  }),
   CommonModule,
   UsersModule,
  
