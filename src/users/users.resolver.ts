@@ -40,4 +40,6 @@ export class UsesrResolver {
             }
         }
     }
+    @Query(returns => User)
+    me() {}
 }

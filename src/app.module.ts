@@ -1,16 +1,18 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import {GraphQLModule} from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
-import { RestaurantsModule } from './restaurants/restaurants.module';
-import { Restaurant } from './restaurants/entities/restaurant.entitiy';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entitiy';
-
 import { CommonModule } from './common/common.module';
 import { JwtModule } from './jwt/jwt.module';
+import {jwtMiddleware} from './jwt/jwt.middleware';
 
 @Module({
   imports: [GraphQLModule.forRoot(
