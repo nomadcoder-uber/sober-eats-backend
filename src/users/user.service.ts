@@ -6,13 +6,17 @@ import { LoginInput } from "./dtos/login.dto";
 import { User } from "./entities/user.entitiy";
 import * as jwt from 'jsonwebtoken';
 import { ConfigService } from "@nestjs/config";
+import { JwtService } from "src/jwt/jwt.service";
 
 @Injectable()
 export class UsersService  {
     constructor(
         @InjectRepository(User) private readonly users: Repository<User>,
-        private readonly config:ConfigService
-    ) {}
+        private readonly config:ConfigService,
+        private readonly jwtService: JwtService
+    ) {
+        this.jwtService.hello()
+    }
 
     async createAccount({email, password, role}: CreateAccountInput): Promise<{ok: boolean; error?:string}>{ //object를 return
         // check new user(사용자 DB에 존재하지 않는 email인지 확인)

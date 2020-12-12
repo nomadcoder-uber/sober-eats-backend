@@ -43,9 +43,10 @@ import { JwtModule } from './jwt/jwt.module';
     entities:[User]
 
   }),
+  JwtModule.forRoot(),
   CommonModule,
   UsersModule,
-  JwtModule
+ 
 ],
   controllers: [],
   providers: [],
