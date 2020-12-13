@@ -9,5 +9,6 @@ import { UsesrResolver } from './users.resolver';
 @Module({
     imports:[TypeOrmModule.forFeature([User])],
     providers:[UsesrResolver,UsersService],
+    exports:[UsersService]
 })
 export class UsersModule {}
