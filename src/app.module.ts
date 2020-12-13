@@ -15,8 +15,9 @@ import { JwtModule } from './jwt/jwt.module';
 import { JwtMiddleware } from './jwt/jwt.middleware';
 
 @Module({
-  imports: [GraphQLModule.forRoot(
-    {autoSchemaFile:true
+  imports: [GraphQLModule.forRoot({
+    autoSchemaFile:true,
+    context: ({ req }) => ({ user: req['user'] }),
     }),
     ConfigModule.forRoot({
       isGlobal:true, //어플리케이션의 어디에서든 config 모듈에 접근옵션
@@ -59,6 +60,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(JwtMiddleware)
-      .forRoutes({ path: '/graphql', method: RequestMethod.ALL });
+      .forRoutes({ path: '/graphql', method: RequestMethod.POST });
   }
 }
