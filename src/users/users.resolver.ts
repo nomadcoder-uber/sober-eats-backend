@@ -1,4 +1,6 @@
+import { UseGuards } from "@nestjs/common";
 import { Args, ArgsType, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { AuthGuard } from "src/auth/auth.guard";
 import { CreateAccountInput, CreateAccountOutput } from "./dtos/create-account.dto";
 import { LoginInput, LoginOutput } from "./dtos/login.dto";
 import { User } from "./entities/user.entitiy";
@@ -32,7 +34,8 @@ export class UsesrResolver {
     @Mutation(returns => LoginOutput)
     async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {
         try{
-            return  this.userService.login(loginInput);
+            const {ok,error,token}= await this.userService.login(loginInput);
+            return {ok,error,token}
         }catch(error){
             return {
                 ok:false,
@@ -41,11 +44,8 @@ export class UsesrResolver {
         }
     }
     @Query(returns => User)
-    me(@Context() context) {
-        if (!context.user) {
-          return;
-        } else {
-          return context.user;
-        }
+    @UseGuards(AuthGuard)
+    me() {
+        
       }
 }
