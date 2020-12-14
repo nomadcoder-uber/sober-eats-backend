@@ -14,14 +14,15 @@ export class JwtModule {
     static forRoot(options: JwtModuleOptions): DynamicModule {
         return{
             module :JwtModule,
-            exports:[JwtService],
-            providers:[{
+            providers:[
+            {
                 provide: CONFIG_OPTIONS,
-                useValue:options,
+                useValue: options,
 
             },
             JwtService,
         ],
+        exports:[JwtService],
 
         }
 
