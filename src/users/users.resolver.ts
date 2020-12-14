@@ -46,7 +46,7 @@ export class UsesrResolver {
         return authUser;
         
       }
-    @UseGuards(AuthUser)
+    @UseGuards(AuthGuard)
     @Query(returns => UserProfileOutput)
     async userProfile(@Args() userProfileInput: UserProfileInput):Promise<UserProfileOutput> {
         try{
