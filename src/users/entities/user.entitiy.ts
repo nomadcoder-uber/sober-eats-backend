@@ -1,5 +1,4 @@
 import { Field, InputType, ObjectType, registerEnumType } from "@nestjs/graphql";
-import { type } from "os";
 import { CoreEntitiy } from "src/common/entities/core.entitiy";
 import { BeforeInsert, BeforeUpdate, Column, Entity } from "typeorm";
 import * as bcrypt from 'bcrypt';
@@ -18,7 +17,6 @@ registerEnumType(UserRole, {name:"UserRole"});
 @ObjectType()
 @Entity()
 export class User extends CoreEntitiy{
-    
     @Column()
     @Field(type => String)
     @IsEmail()
@@ -32,6 +30,10 @@ export class User extends CoreEntitiy{
     @Field(type => UserRole)
     @IsEnum(UserRole)
     role: UserRole;
+
+    @Column({default:false})
+    @Field(type=>Boolean)
+    verified:boolean;
 
     @BeforeInsert() //DB에 password 넣기 전에 hash 하는 방법
     @BeforeUpdate()
