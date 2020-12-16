@@ -22,7 +22,7 @@ export class User extends CoreEntitiy{
     @IsEmail()
     email: string;
 
-    @Column()
+    @Column({select:false})
     @Field(type => String)
     password:string;
 
@@ -38,6 +38,7 @@ export class User extends CoreEntitiy{
     @BeforeInsert() //DB에 password 넣기 전에 hash 하는 방법
     @BeforeUpdate()
     async hashPassword(): Promise<void> {
+        if(this.password){
         try{
             this.password = await bcrypt.hash(this.password, 10);
         } catch(e){
@@ -45,7 +46,9 @@ export class User extends CoreEntitiy{
             throw new InternalServerErrorException();
         }
 
+    
     }
+}
 
     async checkPassword(aPassword: string): Promise<boolean>{
         try{
