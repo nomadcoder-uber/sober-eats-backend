@@ -15,6 +15,8 @@ import { JwtModule } from './jwt/jwt.module';
 import { JwtMiddleware } from './jwt/jwt.middleware';
 import { AuthModule } from './auth/auth.module';
 import { Verification } from './users/entities/verification.entitiy';
+import { MailModule } from './mail/mail.module';
+import { join } from 'path';
 
 @Module({
   imports: [GraphQLModule.forRoot({
@@ -33,6 +35,9 @@ import { Verification } from './users/entities/verification.entitiy';
         DB_PASSWORD:Joi.string().required(),
         DB_NAME:Joi.string().required(),
         PRIVATE_KEY: Joi.string().required(),  //token을 지정하기 위해 사용하는 privateKey
+        MAILGUN_API_KEY:Joi.string().required(),
+        MAILGUN_FROM_EMAIL:Joi.string().required(),
+        MAILGUN_DOMAIN_NAME:Joi.string().required(),
 
       })
     }),
@@ -50,6 +55,11 @@ import { Verification } from './users/entities/verification.entitiy';
   }),
   JwtModule.forRoot({
     privateKey: process.env.PRIVATE_KEY,
+  }),
+  MailModule.forRoot({
+    apiKey:process.env.MAILGUN_API_KEY,
+    fromEmail:process.env.MAILGUN_FROM_EMAIL,
+    domain:process.env.MAILGUN_DOMAIN_NAME
   }),
   UsersModule,
  
