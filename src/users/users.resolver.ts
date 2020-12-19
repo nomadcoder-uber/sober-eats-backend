@@ -2,7 +2,6 @@ import { UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { AuthUser } from "src/auth/auth-user.decorator";
 import { AuthGuard } from "src/auth/auth.guard";
-import { createGzip } from "zlib";
 import { CreateAccountInput, CreateAccountOutput } from "./dtos/create-account.dto";
 import { EditProfileInput, EditProfileOutput } from "./dtos/edit-profile.dto";
 import { LoginInput, LoginOutput } from "./dtos/login.dto";
@@ -50,7 +49,7 @@ export class UsesrResolver {
     }
 
     @Mutation(returns=>VerifyEmailOutput)
-    async verifyEmail(@Args('input') {code}:VerifyEmailInput):Promise<VerifyEmailOutput> {
+     verifyEmail(@Args('input') {code}:VerifyEmailInput):Promise<VerifyEmailOutput> {
   
             return this.userService.verifyEmail(code);
          
