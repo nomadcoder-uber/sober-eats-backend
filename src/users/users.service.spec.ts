@@ -101,16 +101,27 @@ describe("UserService", () =>{
             const result = await service.createAccount(createAccountArgs);
             expect(usersRepository.create).toHaveBeenCalledTimes(1);
             expect(usersRepository.create).toHaveBeenCalledWith(createAccountArgs);
+
             expect(usersRepository.save).toHaveBeenCalledTimes(1);
             expect(usersRepository.save).toHaveBeenCalledWith(createAccountArgs);
+
             expect(verificationsRepository.create).toHaveBeenCalledTimes(1);
             expect(verificationsRepository.create).toHaveBeenCalledWith({user:createAccountArgs});
+
             expect(verificationsRepository.save).toHaveBeenCalledTimes(1);
-            expect(verificationsRepository.save).toHaveBeenCalledWith({user:createAccountArgs})
+            expect(verificationsRepository.save).toHaveBeenCalledWith({user:createAccountArgs});
+
             expect(mailService.sendVerificationEmail).toHaveBeenCalledTimes(1)
             expect(mailService.sendVerificationEmail).toHaveBeenCalledWith(expect.any(String),expect.any(String))
             expect(result).toEqual({ok:true})
 
+        })
+        it('should fail on exception', async () =>{
+            usersRepository.findOne.mockRejectedValue(new Error());
+            const result = await service.createAccount(createAccountArgs)
+            expect(result).toEqual({ok:false,error:"Couldn't create account"});
+
+            
         })
     })
     it.todo('login');
