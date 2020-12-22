@@ -118,9 +118,9 @@ export class UserService  {
             return {ok:true};
             
         }
-        return {ok: false,error:'Verification not found'};
+        return {ok: false,error:'Verification not found.'};
     }catch(error){
-        return {ok:false,error};
+        return {ok:false,error:'Could not verify email.'};
         }
     }
     }
