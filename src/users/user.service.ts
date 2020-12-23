@@ -68,7 +68,7 @@ export class UserService  {
         }catch(error){
             return{
                 ok:false,
-                error:'User Not Found'
+                error:"Can't log user in.",
         }
         }
     }
