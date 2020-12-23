@@ -71,24 +71,24 @@
   },
   "jest": {
     "moduleNameMapper": {
-        "^src/(.*)$": "<rootDir>/$1"
+      "^src/(.*)$": "<rootDir>/$1"
     },
     "moduleFileExtensions": [
-        "js",
-        "json",
-        "ts"
+      "js",
+      "json",
+      "ts"
     ],
     "rootDir": "src",
     "testRegex": ".spec.ts$",
     "transform": {
-        "^.+\\.(t|j)s$": "ts-jest"
+      "^.+\\.(t|j)s$": "ts-jest"
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-        "node_modules",
-        ".entity.ts",
-        ".constants.ts"
+      "node_modules",
+      ".entity.ts",
+      ".constants.ts"
     ]
   }
 }

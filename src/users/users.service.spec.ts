@@ -1,4 +1,3 @@
-import { OmitType } from "@nestjs/graphql";
 import { Test } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { JwtService } from "src/jwt/jwt.service";
@@ -265,7 +264,7 @@ describe("UserService", () =>{
 
 
         })
-        
+
         it('should fail on verification not found',async()=>{
             verificationsRepository.findOne.mockResolvedValue(undefined);
             const result = await service.verifyEmail('');
