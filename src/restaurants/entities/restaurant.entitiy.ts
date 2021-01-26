@@ -1,32 +1,38 @@
-import { Field, ObjectType } from "@nestjs/graphql";
-import { IsBoolean, IsOptional, IsString, Length } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { IsString, Length } from 'class-validator';
+import { CoreEntitiy } from 'src/common/entities/core.entitiy';
+import { User } from 'src/users/entities/user.entitiy';
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { Category } from './category.entity';
 
-
-
+@InputType('RestaurantInputType', { isAbstract: true })
 @ObjectType() //스키마 빌드를 위한 graphql decorator
 @Entity() //typeorm decorator
-export class Restaurant {
+export class Restaurant extends CoreEntitiy {
+  @Field((type) => String)
+  @Column()
+  @IsString()
+  @Length(5)
+  name: string;
 
-    @PrimaryGeneratedColumn()
-    @Field(type=>Number)
-    id:number;
+  @Field((type) => String)
+  @Column()
+  @IsString()
+  coverImg: string;
 
-    @Field(type => String)
-    @Column()
-    @IsString()
-    @Length(5)
-    name: string;
+  @Field((type) => String, { defaultValue: '강남' })
+  @Column()
+  @IsString()
+  address: string;
 
-    @Field(type => Boolean, {nullable:true}) //graphql 스키마 설정
-    @Column({default:true}) //database에 반영
-    @IsOptional() //해당 필드를 보내거나 보내지 않을수있다 (validation 설정)
-    @IsBoolean()
-    isVegan:boolean;
+  @Field((type) => Category, { nullable: true })
+  @ManyToOne((type) => Category, (category) => category.restaurants, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  category: Category;
 
-    @Field(type=> String, {defaultValue:"강남"})
-    @Column()
-    @IsString()
-    address:string;
-
+  @Field((type) => User)
+  @ManyToOne((type) => User, (user) => user.restaurants)
+  owner: User;
 }

@@ -8,7 +8,6 @@ export class MailService {
     constructor(
         @Inject(CONFIG_OPTIONS) private readonly options: MailModuleOptions
     ) {
-        
     }
 
     async sendEmail(subject:string, template:string,emailVars:EmailVar[]):Promise<Boolean>{
