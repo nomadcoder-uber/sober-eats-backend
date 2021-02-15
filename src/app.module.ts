@@ -10,16 +10,14 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entitiy';
-import { CommonModule } from './common/common.module';
 import { JwtModule } from './jwt/jwt.module';
 import { JwtMiddleware } from './jwt/jwt.middleware';
-import { AuthModule } from './auth/auth.module';
 import { Verification } from './users/entities/verification.entitiy';
 import { MailModule } from './mail/mail.module';
-import { join } from 'path';
 import { Category } from './restaurants/entities/category.entity';
 import { Restaurant } from './restaurants/entities/restaurant.entitiy';
 import { RestaurantsModule } from './restaurants/restaurants.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -63,6 +61,7 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
       fromEmail: process.env.MAILGUN_FROM_EMAIL,
       domain: process.env.MAILGUN_DOMAIN_NAME,
     }),
+    AuthModule,
     UsersModule,
     RestaurantsModule,
   ],
