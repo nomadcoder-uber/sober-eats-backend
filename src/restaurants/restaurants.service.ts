@@ -16,6 +16,7 @@ import {
   EditRestaurantInput,
   EditRestaurantOutput,
 } from './dtos/edit-restaurant.dto';
+import { RestaurantsInput, RestaurantsOutput } from './dtos/restaurants.dto';
 import { Category } from './entities/category.entity';
 import { Restaurant } from './entities/restaurant.entitiy';
 import { CategoryRepository } from './repositories/category.repository';
@@ -140,26 +141,56 @@ export class RestaurantService {
   countRestaurants(category: Category) {
     return this.restaurants.count({ category });
   }
-  async findCategoryBySlug({ slug }: CategoryInput): Promise<CategoryOutput> {
+  async findCategoryBySlug({
+    slug,
+    page,
+  }: CategoryInput): Promise<CategoryOutput> {
     try {
-      const category = await this.categories.findOne(
-        { slug },
-        { relations: ['restaurants'] },
-      );
+      const category = await this.categories.findOne({ slug });
       if (!category) {
         return {
           ok: false,
           error: 'Category not found',
         };
       }
+      const restaurants = await this.restaurants.find({
+        where: {
+          category,
+        },
+        take: 25,
+        skip: (page - 1) * 25,
+      });
+      category.restaurants = restaurants;
+      const totalResults = await this.countRestaurants(category);
       return {
         ok: true,
+        restaurants,
         category,
+        totalPages: Math.ceil(totalResults / 25),
       };
     } catch {
       return {
         ok: false,
         error: 'Could not load category',
+      };
+    }
+  }
+  async allRestaurants({ page }: RestaurantsInput): Promise<RestaurantsOutput> {
+    try {
+      const [restaurants, totalResults] = await this.restaurants.findAndCount({
+        skip: (page - 1) * 25,
+        take: 25,
+      });
+      return {
+        ok: true,
+        results: restaurants,
+        totalPages: Math.ceil(totalResults / 25),
+        totalResults,
+      };
+    } catch {
+      return {
+        ok: false,
+        error: 'Could not load restaurants',
       };
     }
   }
