@@ -18,6 +18,7 @@ import { Category } from './restaurants/entities/category.entity';
 import { Restaurant } from './restaurants/entities/restaurant.entitiy';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { AuthModule } from './auth/auth.module';
+import { Dish } from './restaurants/entities/dish.entity';
 
 @Module({
   imports: [
@@ -51,7 +52,7 @@ import { AuthModule } from './auth/auth.module';
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod', //typeorm이 entitiy를 찾아서 알아서 migration해주는옵션
       logging: false, //process.env.NODE_ENV !=='prod',//DB에서 돌아가는 모든 로그들을 확인하는 옵션
-      entities: [User, Verification, Restaurant, Category],
+      entities: [User, Verification, Restaurant, Category, Dish],
     }),
     JwtModule.forRoot({
       privateKey: process.env.PRIVATE_KEY,
